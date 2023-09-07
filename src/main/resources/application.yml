@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/scraper_news
+    username: root
+    password: r00t
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: scraper-news
+
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate.jdbc.batch_size: 50
+server:
+  port: 8080
+application:
+  jwt:
+    secret-key: voicenewsvoicenewsvoicenewsvoicenewsvoicenews
+    issuer: voicenews.com
+    # 1 minute
+    # expiration: 60000
+    #2.4 hours
+    expiration: 8640000
+  cors:
+    allowed-origin: http://localhost:3000, http://192.168.1.56:3000, http://localhost:3040, http://192.168.1.56:3040
