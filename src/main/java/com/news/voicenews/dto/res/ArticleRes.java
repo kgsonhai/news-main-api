@@ -24,15 +24,31 @@ public class ArticleRes {
     private String articleId;
 
     private String url;
+
     private String domain;
+
     private String title;
-    private String category;
-    private Instant time;
+
+    @JsonProperty("title_english")
+    private String titleEnglish;
+
     private String content;
+
+    @JsonProperty("content_english")
+    private String contentEnglish;
 
     @JsonProperty("audio_path")
     private String audioPath;
 
+    @JsonProperty("audio_path_en")
+    private String audioPathEn;
+
+    private String category;
+
+    private Instant time;
+
     @JsonProperty("img_urls")
     private String imgUrls;
+
+
 }

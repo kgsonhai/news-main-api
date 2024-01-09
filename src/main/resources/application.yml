@@ -26,4 +26,4 @@ application:
     #2.4 hours
     expiration: 8640000
   cors:
-    allowed-origin: http://localhost:3000, http://192.168.1.56:3000, http://localhost:3040, http://192.168.1.56:3040
+    allowed-origin: http://localhost:3000, http://localhost:3040, http://localhost:3035, http://172.20.10.2:3000, http://172.20.10.2:3040, http://172.20.10.2:3050

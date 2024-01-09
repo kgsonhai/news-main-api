@@ -22,10 +22,4 @@ public class CrawlerController {
         return new ResponseEntity<>(crawlerBloc.startCrawler(), CREATED);
     }
 
-    @PostMapping("/test/audio/empty")
-    public ResponseEntity<?> testAudio() {
-        crawlerBloc.updateScoreHasPointButAudioNull(47L);
-        return ResponseEntity.ok(400);
-    }
-
 }

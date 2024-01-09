@@ -51,6 +51,7 @@ public class Score
     @Column(name = "audio_path")
     private String audioPath;
 
-    @Column(name = "img_urls")
-    private String imgUrls;
+
+    @Column(name = "audio_path_en")
+    private String audioPathEn;
 }

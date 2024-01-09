@@ -16,20 +16,20 @@ public interface ScoreRepository
             + " AND category = :category"
             + " AND score > 0"
             + " ORDER BY score DESC"
-            + " LIMIT :limit", nativeQuery = true)
+            ,nativeQuery = true)
     List<Score> findScoresBySessionIdAndCategoryWithLimit(@Param("sessionId") Long sessionId,
-                                                          @Param("category") String category,
-                                                          @Param("limit") Integer limit);
+                                                          @Param("category") String category);
 
     Optional<Score> findById(Long id);
 
     List<Score> findAllByArticleId(String articleId);
 
     @Query(value = "SELECT * FROM scores"
-            + " WHERE article_id = :articleId"
+            + " WHERE session_id = :sessionId"
+            + " AND article_id = :articleId"
             + " AND audio_path IS NOT NULL"
             + " LIMIT 1", nativeQuery = true)
-    Score findByArticleIdAndAudioPathNotNull(@Param("articleId") String articleId);
+    Score findByArticleIdAndAudioPathNotNull(@Param("sessionId") Long sessionId, @Param("articleId") String articleId);
 
     @Query(value = "SELECT * FROM scores"
             + " WHERE article_id = :articleId"

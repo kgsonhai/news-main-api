@@ -1,11 +1,10 @@
 package com.news.voicenews.api.auth;
 
+import com.news.voicenews.api.client.TranslateLanguageClient;
 import com.news.voicenews.bloc.CrawlerBloc;
 import com.news.voicenews.bloc.JwtBloc;
 import com.news.voicenews.bloc.RegisterBloc;
-import com.news.voicenews.dto.req.LoginReq;
-import com.news.voicenews.dto.req.RefreshTokenReq;
-import com.news.voicenews.dto.req.RegisterReq;
+import com.news.voicenews.dto.req.*;
 import com.news.voicenews.dto.res.TokenRes;
 import com.news.voicenews.security.CustomUserDetails;
 import org.springframework.http.HttpStatus;
@@ -13,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,13 +24,17 @@ public class AuthController {
 
     private final CrawlerBloc crawlerBloc;
 
+    private  final TranslateLanguageClient translateLanguageClient;
+
     public AuthController(final JwtBloc jwtBloc,
                           final AuthenticationManager authenticationManager,
-                          final RegisterBloc registerBloc, final CrawlerBloc crawlerBloc) {
+                          final RegisterBloc registerBloc, final CrawlerBloc crawlerBloc, final TranslateLanguageClient translateLanguageClient
+    ) {
         this.jwtBloc = jwtBloc;
         this.authenticationManager = authenticationManager;
         this.registerBloc = registerBloc;
         this.crawlerBloc = crawlerBloc;
+        this.translateLanguageClient = translateLanguageClient;
     }
 
     @PostMapping("/register")
@@ -67,9 +67,10 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    @PostMapping("/debug/crawlAudio")
-    public ResponseEntity<?> debugCrawlAudio() {
-        crawlerBloc.updateScoreHasPointButAudioNull(Long.valueOf(45));
-        return ResponseEntity.ok("DONE");
+    @PostMapping("/test/call-service-translate")
+    public ResponseEntity<?> debugCrawlAudio(@RequestBody TranslateLanguageReq translateLanguageReq) {
+        long sessionId = translateLanguageReq.getSessionId();
+        translateLanguageClient.translateLanguage(translateLanguageReq);
+        return ResponseEntity.ok(sessionId);
     }
 }

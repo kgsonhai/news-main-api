@@ -19,7 +19,6 @@ import java.time.Instant;
 @ToString
 @Builder
 public class Article {
-
     private ObjectId _id;
     private String uuid;
     private String url;
@@ -28,5 +27,8 @@ public class Article {
     private String category;
     private String category_url;
     private Instant time;
+    private String img_urls;
     private String content;
+    private String title_english;
+    private String content_english;
 }

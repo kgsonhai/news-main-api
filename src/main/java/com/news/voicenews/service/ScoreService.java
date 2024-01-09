@@ -22,10 +22,11 @@ public class ScoreService {
     }
 
     @Transactional(readOnly = true)
-    public List<Score> fetchScoresBySessionIdCategoryWithLimit(Long sessionId, String category, Integer limit) {
-        log.info("Fetch scores by sessionId #{}, category #{}, limit #{}", sessionId, category, limit);
+    public List<Score> fetchScoresBySessionIdCategoryWithLimit(Long sessionId, String category) {
+        log.info("Fetch scores by sessionId #{}, category #{}", sessionId, category);
+        log.info("Data  #{}", scoreRepository.findScoresBySessionIdAndCategoryWithLimit(sessionId, category));
 
-        return scoreRepository.findScoresBySessionIdAndCategoryWithLimit(sessionId, category, limit);
+        return scoreRepository.findScoresBySessionIdAndCategoryWithLimit(sessionId, category);
     }
 
     @Transactional(readOnly = true)
@@ -44,10 +45,10 @@ public class ScoreService {
     }
 
     @Transactional(readOnly = true)
-    public Score findByArticleIdAndAudioPathNotNull(final String articleId) {
+    public Score findByArticleIdAndAudioPathNotNull(final String articleId, final Long sessionId) {
         log.info("Find by article id #{} and audio not null", articleId);
 
-        return scoreRepository.findByArticleIdAndAudioPathNotNull(articleId);
+        return scoreRepository.findByArticleIdAndAudioPathNotNull(sessionId,articleId);
     }
 
     @Transactional(readOnly = true)

@@ -50,11 +50,14 @@ public class ArticleBloc {
                          .url(score.getUrl())
                          .domain(score.getDomain())
                          .title(articleMongo.getTitle())
+                         .titleEnglish(articleMongo.getTitle_english())
                          .category(score.getCategory())
                          .time(articleMongo.getTime())
                          .content(articleMongo.getContent())
+                         .contentEnglish(articleMongo.getContent_english())
                          .audioPath(score.getAudioPath())
-                         .imgUrls(score.getImgUrls())
+                         .audioPathEn(score.getAudioPathEn())
+                         .imgUrls(articleMongo.getImg_urls())
                          .build();
     }
 
@@ -102,8 +105,7 @@ public class ArticleBloc {
         List<Score> scores = new ArrayList<>();
         for (int i = 0; i < categories.size(); i++) {
             List<Score> sc = scoreService.fetchScoresBySessionIdCategoryWithLimit(sessionId,
-                                                                                  categoryNames.get(i),
-                                                                                  numberOfArticlesPerCategory.get(i));
+                                                                                  categoryNames.get(i));
             scores.addAll(sc);
         }
 
@@ -123,7 +125,10 @@ public class ArticleBloc {
                                           .time(articleMongo.getTime())
                                           .content(articleMongo.getContent())
                                           .audioPath(score.getAudioPath())
-                                          .imgUrls(score.getImgUrls())
+                                          .imgUrls(articleMongo.getImg_urls())
+                                          .titleEnglish(articleMongo.getTitle_english())
+                                          .contentEnglish(articleMongo.getContent_english())
+                                          .audioPathEn(score.getAudioPathEn())
                                           .build();
                      })
                      .collect(Collectors.toList());
